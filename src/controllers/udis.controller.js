@@ -1,6 +1,6 @@
 const { request, response } = require('express');
 const { UDIService } = require('../services/banxico.service');
-const { getDayFromMoment, dateIntervals } = require('../helpers/datemanipulation');
+const { getDayFromMoment, dateIntervals, formatData } = require('../helpers');
 const UDI = require('../models/udi.model');
 
 const udisCreate = async ( req = request, res = response) =>{
@@ -10,12 +10,12 @@ const udisCreate = async ( req = request, res = response) =>{
 
         if( day !== 24 && day !== 10 ){
             return res.status(200).json({
-                msg: 'Ya se encuentran generados en bd los udis para esta fecha',
+                msg: 'UDIs are alredy saved on BD',
             })
         }
         
-        const { initPeriod, endPeriod } = dateIntervals(day); 
-
+        const { initPeriod, endPeriod } = dateIntervals( day ); 
+    
         const response = await UDIService(initPeriod, endPeriod);
 
         const data = response?.data;
@@ -24,13 +24,13 @@ const udisCreate = async ( req = request, res = response) =>{
 
         const { datos } = series[0];
 
-        //const udi = await UDI.bulkCreate(datos);
-        const udi = await UDI.create({})
+        const bulkData = formatData( datos );
+        const udi = await UDI.bulkCreate( bulkData );
 
-        res.status(200).json({
-            msg: 'Success',
-            data: datos,
-            udi
+        console.log(udi);
+
+        res.status(201).json({
+            msg: 'UDIS created succesfully',
         });
         
     }catch(error){

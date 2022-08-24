@@ -1,7 +1,5 @@
 const moment = require('moment');
 
-
-
 const getDayFromMoment = () =>{
     
     const date = moment().format('YYYY/MM/DD');
@@ -16,7 +14,7 @@ const getDayFromMoment = () =>{
 const dateIntervals = ( day ) =>{
     
     const initPeriod = moment().add(1,'days').format('YYYY-MM-DD');
-
+    
     let endPeriod;
 
     if(day === 10){
