@@ -10,6 +10,13 @@ test('Should get the day from the current date', () => {
 
 });
 
-test('', () => {
-    
+test('Should yield two date ranges', () => {
+
+    const periods = dateIntervals(25);
+
+    const keys = Object.keys(periods);
+
+    console.log(keys)
+    expect( keys ).toEqual(['initPeriod', 'endPeriod'])
+
 });

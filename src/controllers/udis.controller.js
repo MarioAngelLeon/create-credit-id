@@ -1,6 +1,7 @@
 const { request, response } = require('express');
 const { UDIService } = require('../services/banxico.service');
 const { getDayFromMoment, dateIntervals, formatData } = require('../helpers');
+const moment = require('moment');
 const UDI = require('../models/udi.model');
 
 const udisCreate = async ( req = request, res = response) =>{
@@ -44,6 +45,41 @@ const udisCreate = async ( req = request, res = response) =>{
     }
 }
 
+const udisGet = async (req = request, res = response) =>{
+    try{
+
+        const { date } = req.params;
+        
+        if( !date ){
+            return res.status(400).json({
+                msg: 'No date provided'
+            })
+        }
 
 
-module.exports = { udisCreate }
+        const udi = await UDI.findOne({ where: { fecha: moment(date,'YYYY-MM-DD')} });
+
+
+        if(!udi){
+            return res.status(404).json({
+                msg:'UDI not found',
+            })
+        }
+
+        res.status(200).json({
+            msg: 'OK',
+            data: udi,
+        });
+
+    }catch(e){
+
+        console.error('Error in udis.controller.js file in udisGet ', e);
+        res.status(500).json({
+            status: 500,
+            msg: 'Error con la aplicación, contacte al administrador',
+        });
+        
+    }
+}
+
+module.exports = { udisCreate, udisGet }
