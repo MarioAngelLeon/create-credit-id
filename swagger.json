@@ -1,0 +1,68 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "description": "This is an api to get udis from banxico",
+    "version": "1.0.0",
+    "title": "UDIs get API",
+    "contact": {
+      "email": "j.hernandez@softtek.com"
+    }
+  },
+  "schemes": ["http"],
+  "host": "localhost:3002",
+  "basePath": "/api/v1/udis",
+  "paths": {
+    "/{date}": {
+      "get": {
+        "tags": ["Udi"],
+        "summary": "get one udi from BD",
+        "description": "Method to get one udi by date",
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "date",
+            "description": "Date to search",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "example": "2022/08/26"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/getUdi"
+              }
+            }
+          },
+          "500": {
+            "description": "Algo salió mal al realizar el proceso de guardado de udis",
+            "schema": {
+              "type": "array"
+            }
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "getUdi": {
+      "type": "object",
+      "properties": {
+        "fecha": {
+          "type": "string",
+          "example": "26/08/2022"
+        },
+        "dato": {
+          "type": "string",
+          "example": "7.465516"
+        }
+      }
+    }
+  }
+}

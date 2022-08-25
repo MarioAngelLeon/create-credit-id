@@ -1,11 +1,8 @@
-const { Router } = require('express');
-const { udisCreate, udisGet } = require('../controllers/udis.controller');
+const { Router } = require("express");
+const { udisGet } = require("../controllers/udis.controller");
 
 const router = Router();
 
-router.get('/:date', udisGet);
-
-router.post('/', udisCreate);
-
+router.get("/:date", udisGet);
 
 module.exports = router;

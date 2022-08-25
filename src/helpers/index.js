@@ -1,5 +1,3 @@
-const { dateIntervals, getDayFromMoment } = require('./datemanipulation');
-const { formatData } = require('./formatData');
+const { formatDate } = require("./formatDate");
 
-
-module.exports = { dateIntervals, getDayFromMoment, formatData}
+module.exports = { formatDate };
