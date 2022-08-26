@@ -39,6 +39,7 @@ const udisGet = async (req = request, res = response) => {
     } else if (foundDate > searchDate) {
       return res.status(404).json({
         msg: "No se encontro el valor para la fecha solicitada",
+        date: formatDate(date),
       });
     }
 
