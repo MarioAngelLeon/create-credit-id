@@ -8,7 +8,7 @@ let DBConnection = new typeorm.DataSource({
   password: process.env.DB_PASS,
   database: process.env.DB_DATABASE,
   synchronize: (process.env.DB_SYNC || "").toUpperCase() === "TRUE",
-  entities: [require("../models/udi.entity")],
+  entities: [require("../models/creditId.entity")],
 });
 
 module.exports = DBConnection;
